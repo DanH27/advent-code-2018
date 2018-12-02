@@ -1,22 +1,6 @@
 letter_count = {'two': 0, 'three': 0}
 
 
-def checkTwice(dict):
-    #twoletters = 0
-    #threeletters = 0
-    for letter in dict:
-        if dict[letter] == 2:
-            letter_count['two'] += 1
-            break;
-        if dict[letter] == 3:
-            letter_count['three']+= 1
-            break;
-    #if twoletters != 0:
-    #    print("Two letters" + str(twoletters))
-    #if threeletters != 0:
-    #    print("three letters" + str(threeletters))
-
-
 with open("day2-input.txt", "r") as f:
     twosFound = 0
     threesFound = 0
@@ -39,23 +23,28 @@ with open("day2-input.txt", "r") as f:
 
         #checkTwice(letter_dict)
         letter_dict.clear()
+        #Print twos found and threes found
         print(twosFound, threesFound)
 
 
 ######PART 2########
 with open("day2-input.txt", "r") as f:
-    box_size = 25
+    all_words = []
     current_word = []
-    letters_differnt = 0
-    for word in f:
-        current_word = list(word)
-        break
-    for word in f:
-        listed_word = list(word)
-        for i in range(box_size):
-            if listed_word[i] != current_word[i]:
-                letters_differnt += 25
-                break;
-    current_word = []
+    words_not_matched = 0
+    correct_letters = 0
+    correct_letters_list = []
+    for line in f:
+        all_words.append(line.rstrip())
 
-    print(letters_differnt)
+    for word in all_words:
+        current_word = list(word)
+
+        for word2 in all_words:
+            matches = 0
+            for i in range(25):
+                if list(word2)[i] != list(word)[i]:
+                    matches += 1
+            if matches == 1:
+                #Returns words that have only 1 difference at same index
+                print(word2)
